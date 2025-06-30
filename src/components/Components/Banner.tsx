@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import bannerImage from "../../../public/okey.jpg";
+
 export function Banner() {
   const [mounted, setMounted] = useState(false);
   const { scrollY } = useScroll();
@@ -20,16 +21,15 @@ export function Banner() {
 
   const resumeUrl = "../../../public/resume/pdf.pdf";
 
-  const handleResumeDownload = (url: any) => {
+  const handleResumeDownload = (url: string) => {
     const resumeName = url.split("/").pop();
     const aTag = document.createElement("a");
     aTag.href = url;
-    aTag.setAttribute("Download", resumeName);
+    aTag.setAttribute("Download", resumeName || "resume.pdf");
     aTag.click();
     aTag.remove();
   };
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -48,7 +48,7 @@ export function Banner() {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: "easeOut",
+        ease: "easeOut" as const,
       },
     },
   };
@@ -61,7 +61,7 @@ export function Banner() {
       rotate: 0,
       transition: {
         duration: 1,
-        ease: "easeOut",
+        ease: "easeOut" as const,
         delay: 0.5,
       },
     },
@@ -74,7 +74,7 @@ export function Banner() {
       transition: {
         duration: 6,
         repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
+        ease: "easeInOut" as const,
       },
     },
   };
@@ -91,7 +91,7 @@ export function Banner() {
       }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* Animated geometric line patterns */}
+        {/* Animated line pattern */}
         <motion.div
           className="absolute inset-0 overflow-hidden opacity-30"
           style={{ y: y1 }}
@@ -120,8 +120,6 @@ export function Banner() {
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" />
           </svg>
-
-          {/* Animated diagonal lines */}
           <div className="absolute inset-0">
             {Array.from({ length: 20 }).map((_, i) => (
               <motion.div
@@ -137,38 +135,32 @@ export function Banner() {
                 transition={{
                   duration: 1.5,
                   delay: i * 0.1,
-                  ease: "easeOut",
+                  ease: "easeOut" as const,
                 }}
               />
             ))}
           </div>
         </motion.div>
 
-        {/* Enhanced background decorative elements */}
+        {/* Animated Background */}
         <motion.div className="absolute inset-0 overflow-hidden">
           <motion.div
             className="absolute top-20 left-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.1, 0.3, 0.1],
-            }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.3, 0.1] }}
             transition={{
               duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
+              repeat: Infinity,
+              ease: "easeInOut" as const,
             }}
             style={{ y: y2 }}
           />
           <motion.div
             className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
-            animate={{
-              scale: [1.2, 1, 1.2],
-              opacity: [0.3, 0.1, 0.3],
-            }}
+            animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.1, 0.3] }}
             transition={{
               duration: 4,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
+              repeat: Infinity,
+              ease: "easeInOut" as const,
               delay: 2,
             }}
             style={{ y: y1 }}
@@ -177,14 +169,13 @@ export function Banner() {
 
         <div className="container mx-auto relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Text content with staggered animations */}
+            {/* Text */}
             <motion.div
               className="space-y-8 text-left"
               variants={containerVariants}
               initial="hidden"
               animate="visible"
             >
-              {/* Greeting */}
               <div className="space-y-4">
                 <motion.p
                   className="text-lg text-white/70 font-semibold"
@@ -214,7 +205,7 @@ export function Banner() {
                     }}
                     transition={{
                       duration: 3,
-                      repeat: Number.POSITIVE_INFINITY,
+                      repeat: Infinity,
                       ease: "linear",
                     }}
                     style={{
@@ -244,7 +235,6 @@ export function Banner() {
                 </motion.h2>
               </div>
 
-              {/* Description */}
               <motion.div className="max-w-lg" variants={itemVariants}>
                 <p className="text-lg text-white/80 leading-relaxed">
                   Passionate and creative Web Developer with a keen eye for
@@ -255,7 +245,6 @@ export function Banner() {
                 </p>
               </motion.div>
 
-              {/* Buttons and Social Links */}
               <motion.div
                 className="flex flex-col sm:flex-row gap-4 items-start"
                 variants={itemVariants}
@@ -272,7 +261,7 @@ export function Banner() {
                       animate={{ rotate: [0, 20] }}
                       transition={{
                         duration: 5,
-                        repeat: Number.POSITIVE_INFINITY,
+                        repeat: Infinity,
                         ease: "linear",
                       }}
                     >
@@ -321,7 +310,7 @@ export function Banner() {
               </motion.div>
             </motion.div>
 
-            {/* Right side - Animated Profile Image */}
+            {/* Image */}
             <motion.div
               className="flex justify-center lg:justify-end"
               variants={imageVariants}
@@ -333,21 +322,15 @@ export function Banner() {
                 variants={floatingVariants}
                 animate="animate"
               >
-                {/* Enhanced glowing border effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl blur-lg opacity-75"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.75, 1, 0.75],
-                  }}
+                  animate={{ scale: [1, 1.05, 1], opacity: [0.75, 1, 0.75] }}
                   transition={{
                     duration: 3,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
+                    repeat: Infinity,
+                    ease: "easeInOut" as const,
                   }}
                 />
-
-                {/* Image container */}
                 <motion.div
                   className="relative bg-gradient-to-br from-purple-600 to-pink-600 p-1 rounded-3xl"
                   whileHover={{ scale: 1.02 }}
@@ -369,7 +352,7 @@ export function Banner() {
           </div>
         </div>
 
-        {/* Enhanced floating particles effect */}
+        {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {Array.from({ length: 8 }).map((_, i) => (
             <motion.div
@@ -387,15 +370,15 @@ export function Banner() {
               }}
               transition={{
                 duration: 3 + Math.random() * 2,
-                repeat: Number.POSITIVE_INFINITY,
+                repeat: Infinity,
                 delay: Math.random() * 2,
-                ease: "easeInOut",
+                ease: "easeInOut" as const,
               }}
             />
           ))}
         </div>
 
-        {/* Animated scroll indicator */}
+        {/* Scroll indicator */}
         <motion.div
           className="absolute bottom-32 left-1/2 transform -translate-x-1/2"
           initial={{ opacity: 0, y: 20 }}
@@ -408,8 +391,8 @@ export function Banner() {
               animate={{ y: [0, 10, 0] }}
               transition={{
                 duration: 2,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
+                repeat: Infinity,
+                ease: "easeInOut" as const,
               }}
             >
               <div className="w-6 h-10 border-2 border-purple-400/50 rounded-full flex justify-center">
@@ -417,8 +400,8 @@ export function Banner() {
                   animate={{ y: [0, 8, 0] }}
                   transition={{
                     duration: 1.5,
-                    repeat: Number.POSITIVE_INFINITY,
-                    ease: "easeInOut",
+                    repeat: Infinity,
+                    ease: "easeInOut" as const,
                   }}
                 >
                   <ArrowDown className="h-4 w-4 text-purple-300 group-hover:text-white transition-colors mt-2" />
